@@ -6,14 +6,14 @@ export default function AddPlacePopup({
     isOpen,
     onClose,
     onAddPlace,
-    isLoading,
+    isLoading
 }) {
     const { values, handleChange, setValues } = useForm({});
 
     useEffect(() => {
         setValues({});
     }, [isOpen]);
-
+   
     function handleSubmit(evt) {
         evt.preventDefault();
         onAddPlace(values);

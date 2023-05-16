@@ -11,6 +11,7 @@ export default function Login({ onLogin }) {
         const { value, name } = evt.target;
         setLoginUserInfo((values) => ({ ...values, [name]: value }))
     };
+
     function handleSubmit(evt) {
         evt.preventDefault();
         onLogin({
@@ -50,6 +51,7 @@ export default function Login({ onLogin }) {
                     placeholder="Пароль"
                     minLength="8"
                     maxLength="40"
+                    required
                     onChange={handleChange}
                     value={loginUserInfo.password || ''}
                 />

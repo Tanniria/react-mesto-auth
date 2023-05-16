@@ -126,6 +126,12 @@ export default function App() {
         handleTokenCheck();
     }, []);
 
+    useEffect(() => {
+        if (loggedIn) {
+          navigate("/");
+        }
+      }, [loggedIn, navigate]);
+
     function handleSingOut() {
         localStorage.removeItem("jwt");
         setLoggedIn(false);
