@@ -6,6 +6,7 @@ export default function Register({ onRegister }) {
         email: '',
         password: '',
     });
+
     function handleChange(evt) {
         const { value, name } = evt.target;
         setRegistrationUserInfo({ ...registrationUserInfo, [name]: value })
@@ -14,10 +15,11 @@ export default function Register({ onRegister }) {
         evt.preventDefault();
         onRegister(registrationUserInfo)
     }
+
     return (
         <div className="auth">
             <AuthForm
-                name={"login"}
+                name={"register"}
                 title={"Регистрация"}
                 buttonText={"Зарегистрироваться"}
                 onSubmit={handleSubmit}
@@ -43,7 +45,7 @@ export default function Register({ onRegister }) {
                     type="password"
                     name="password"
                     placeholder="Пароль"
-                    minLength="8"
+                    minLength="7"
                     maxLength="40"
                     onChange={handleChange}
                     value={registrationUserInfo.password}

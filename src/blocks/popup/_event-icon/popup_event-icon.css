@@ -1,6 +1,5 @@
 .popup_event-icon {
     width: 120px;
     height: 120px;
-    border-style: none;
-    object-fit: cover;
-}
+    margin: 26px 0 32px 0;
+};

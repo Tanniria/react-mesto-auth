@@ -1,27 +1,28 @@
-.auth__form_submit {
+.auth__button-submit {
     width: 358px;
     height: 50px;
-    margin-top: 216px;
+    padding: 0;
+    margin-top: 164px;
     font-weight: 400;
     font-size: 18px;
     line-height: 22px;
     text-align: center;
     border-radius: 2px;
-    cursor: pointer;
     background: #fff;
     border: none;
     color: #000;
+    cursor: pointer;
 }
 
-.auth__form_submit:hover {
-    opacity: 0.8;
+.auth__button-submit:hover {
+    opacity: 0.85;
 }
 
-@media screen and (max-width: 536px) {
-    .auth__submit {
+@media screen and (max-width: 900px) {
+    .auth__button-submit {
         max-width: 260px;
         margin-top: 173px;
-        line-height: 19px;
         font-size: 16px;
+        line-height: 19px;
     }
 }

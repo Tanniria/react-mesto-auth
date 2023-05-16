@@ -8,7 +8,7 @@ function checkResponse(res) {
 };
 
 export function register({ email, password }) {
-    return fetch(`${BASE_URL}/signup`, {
+    return fetch(`${BASE_URL}signup`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -18,7 +18,7 @@ export function register({ email, password }) {
         .then((res) => checkResponse(res));
 };
 export function login({ email, password }) {
-    return fetch(`${BASE_URL}/signin`, {
+    return fetch(`${BASE_URL}signin`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -28,7 +28,7 @@ export function login({ email, password }) {
         .then((res) => checkResponse(res));
 };
 export function checkToken(token) {
-    return fetch(`${BASE_URL}/users/me`, {
+    return fetch(`${BASE_URL}users/me`, {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',

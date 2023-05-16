@@ -1,40 +1,41 @@
 import React from "react";
-import { Route, Routes, useLocation, Link } from "react-router-dom";
+import { useLocation, Link, Routes, Route } from "react-router-dom";
 import logo from '../images/logo.svg';
 
-export default function Header({ loggedIn, userEmail, onSignOut }) {
+export default function Header({ userEmail, onSignOut, loggedIn }) {
     const location = useLocation();
-    const linkText = location.pathname === "/sign-in" ? "Регистрация" : "Войти";
-    const buttonText = loggedIn ? "Выйти" : linkText;
+    
+    const link = location.pathname === "/sign-in" ? "Регистрация" : "Войти";
+    const buttonText = loggedIn ? "Выйти" : link;
+
     return (
         <header className="header">
-            <img className="header__logo"
-                src={logo}
-                alt="Логотип с надписью Место" />
-            <div className="header__menu">
+            <div className="header__container">
+                <img
+                    src={logo}
+                    className="header__logo"
+                    alt="Логотип с надписью Место" />
                 <Routes>
-                    <Route
-                        path="/sign-in"
+                    <Route path="/"
                         element={
-                            <Link to="/sign-up"
-                                className="header__button-link">Регистрация</Link>
+                            <div>
+                                <nav className="header__nav">
+                                    <p className="header__email">{userEmail}</p>
+                                    <button
+                                        className="header__button-signout"
+                                        onClick={onSignOut}>
+                                        {buttonText}
+                                    </button>
+                                </nav>
+                            </div>
                         } />
-                    <Route
-                        path="/sign-up"
+                    <Route path="/sign-in"
                         element={
-                            <Link to="/sign-in"
-                                className="header__button-link">Войти</Link>
-                        } />
+                            <Link to="/sign-up" className="header__button-link">Регистрация</Link>} />
+                    <Route path="/sign-up"
+                        element={
+                            <Link to="/sign-in" className="header__button-link">Войти </Link>} />
                 </Routes>
-                {loggedIn && (
-                    <nav className="header__nav">
-                        <p className="header__email">{userEmail}</p>
-                        <button
-                            className="header__button-link header__button-link_type_auth"
-                            onClick={() => onSignOut()}>
-                            {buttonText}</button>
-                    </nav>
-                )}
             </div>
         </header>
     );

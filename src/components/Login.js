@@ -6,17 +6,19 @@ export default function Login({ onLogin }) {
         email: '',
         password: '',
     });
+
     function handleChange(evt) {
         const { value, name } = evt.target;
-        setLoginUserInfo((initialState) => ({ ...initialState, [name]: value }))
-    }
+        setLoginUserInfo((values) => ({ ...values, [name]: value }))
+    };
     function handleSubmit(evt) {
         evt.preventDefault();
         onLogin({
             email: loginUserInfo.email,
             password: loginUserInfo.password,
         });
-    }
+    };
+
     return (
         <div className="auth">
             <AuthForm
@@ -24,7 +26,6 @@ export default function Login({ onLogin }) {
                 title={"Вход"}
                 buttonText={"Войти"}
                 onSubmit={handleSubmit}>
-
                 <input
                     className="auth__input auth__input_value_email"
                     id="email__input"

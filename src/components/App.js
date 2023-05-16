@@ -27,12 +27,10 @@ export default function App() {
     const [isInfoTooltipPopupOpen, setIsInfoTooltipPopupOpen] = useState(false);
     const [loggedIn, setLoggedIn] = useState(false);
     const [registrationSuccess, setRegistrationSuccess] = useState(false);
-
     const [selectedCard, setSelectedCard] = useState({});
     const [currentUser, setCurrentUser] = useState({});
     const [cards, setCards] = useState([]);
     const [userEmail, setUserEmail] = useState('');
-
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -68,7 +66,6 @@ export default function App() {
     function handleInfoTooltipClick() {
         setIsInfoTooltipPopupOpen(true);
     };
-
     function closeAllPopups() {
         setIsEditProfilePopupOpen(false);
         setIsAddPlacePopupOpen(false);
@@ -87,11 +84,12 @@ export default function App() {
                 navigate("/sign-in")
             })
             .catch((err) => {
-                console.log(`Ошибка: ${err}`);
                 setRegistrationSuccess(false);
-                handleInfoTooltipClick();
+                handleInfoTooltipClick(true);
+                console.log(`Ошибка: ${err}`);
             })
     }
+
     function handleLogin(data) {
         return auth
             .login(data)
@@ -102,34 +100,31 @@ export default function App() {
                 navigate("/");
             })
             .catch((err) => {
+                setRegistrationSuccess(false);
+                handleInfoTooltipClick(true);
                 console.log(`Ошибка: ${err}`);
-                handleInfoTooltipClick();
             })
     }
+
     function handleTokenCheck() {
         const token = localStorage.getItem("jwt");
-        if (!token) {
-            return;
+        if (token) {
+            auth
+                .checkToken(token)
+                .then((res) => {
+                    if (res) {
+                        setLoggedIn(true);
+                        setUserEmail(res.data.email)
+                    }
+                })
+                .catch((err) => {
+                    console.log(`Ошибка: ${err}`);
+                })
         }
-        auth
-            .checkToken(token)
-            .then((data) => {
-                setUserEmail(data.data.email)
-                setLoggedIn(true);
-            })
-            .catch((err) => {
-                console.log(`Ошибка: ${err}`);
-            })
     }
     useEffect(() => {
         handleTokenCheck();
     }, []);
-
-    useEffect(() => {
-        if (loggedIn) {
-            navigate("/");
-        }
-    }, [loggedIn, navigate]);
 
     function handleSingOut() {
         localStorage.removeItem("jwt");
@@ -207,9 +202,7 @@ export default function App() {
                 console.log(`Ошибка: ${err}`)
             })
             .finally(() => setIsLoading(false))
-    };
-
-
+    }
     return (
         <CurrentUserContext.Provider value={currentUser}>
             <div className="page">
@@ -232,18 +225,15 @@ export default function App() {
                                 onCardDelete={handleDeleteIcon}
                                 cards={cards}
                             />
-                        }
-                    />
+                        } />
                     <Route
                         path="/sign-in"
-                        element={<Login onLogin={handleLogin} />}
-                    />
+                        element={<Login onLogin={handleLogin} />} />
                     <Route
                         path="/sign-up"
-                        element={<Register onRegister={handleRegistration} />}
-                    />
+                        element={<Register onRegister={handleRegistration} />} />
                 </Routes>
-                <Footer loggedIn={loggedIn}/>
+                <Footer loggedIn={loggedIn} />
                 <EditProfilePopup
                     isOpen={isEditProfilePopupOpen}
                     onClose={closeAllPopups}
@@ -269,11 +259,9 @@ export default function App() {
                     isOpen={isImagePopupOpen}
                     onClose={closeAllPopups} />
                 <InfoTooltip
-                isOpen={isInfoTooltipPopupOpen}
-                onClose={closeAllPopups}
-                name="registration"
-                registration={registrationSuccess}
-                />
+                    isOpen={isInfoTooltipPopupOpen}
+                    onClose={closeAllPopups}
+                    isSuccess={registrationSuccess} />
             </div>
         </CurrentUserContext.Provider>
     );

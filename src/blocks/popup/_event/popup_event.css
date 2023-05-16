@@ -1,6 +1,5 @@
 .popup_event {
-    padding: 60px 36px;
     display: flex;
-    flex-direction: column;
+    flex-direction:column-reverse;
     align-items: center;
 }

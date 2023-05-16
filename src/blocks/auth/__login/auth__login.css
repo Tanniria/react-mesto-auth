@@ -1,23 +1,22 @@
 .auth__login {
-    margin-top: 15px;
+    width: 100%;
     min-height: 17px;
-    text-align: center;
-    font-style: normal;
+    margin-top: 15px;
     font-weight: 400;
     font-size: 14px;
     line-height: 17px;
     color: #fff;
+    text-align: center;
     text-decoration: none;
-    transition: 0.8s ease;
+    cursor: pointer;
 }
 
 .auth__login:hover {
     opacity: 0.6;
-    cursor: pointer;
 }
 
-@media screen and (max-width: 536px) {
-    .auth__login-hint {
+@media screen and (max-width: 900px) {
+    .auth__login {
         margin-top: 20px;
-    }
+    };
 }
